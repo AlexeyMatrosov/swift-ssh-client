@@ -61,6 +61,12 @@ public extension SFTPClient {
             )
         }
     }
+    
+    func canonicalize(path: SFTPFilePath) -> async throws -> SFTPFilePath {
+        try await withCheckedResultContinuation { completion in
+            canonicalize(path: path, completion: completion)
+        }
+    }
 
     func listDirectory(at path: SFTPFilePath) async throws -> [SFTPPathComponent] {
         try await withCheckedResultContinuation { completion in
