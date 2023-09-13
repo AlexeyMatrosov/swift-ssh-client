@@ -82,10 +82,10 @@ public final class SFTPClient: @unchecked Sendable, SSHSession {
     }
     
     public func canonicalize(path: SFTPFilePath,
-                             completion: @escaping ((Result<[SFTPPathComponent], Error>) -> Void)) {
+                             completion: @escaping ((Result<SFTPPathComponent, Error>) -> Void)) {
         
         sftpChannel.realpath(path: path)
-            .map { $0.components }
+            .map { $0.components.first?.filename ?? "" }
             .whenComplete(on: updateQueue, completion)
     }
 
